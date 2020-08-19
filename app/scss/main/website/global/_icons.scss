@@ -1,0 +1,17 @@
+.icon {
+  @each $icon, $code in $icons {
+	&-#{$icon} {
+	  position: relative;
+	  height: 50px;
+	  width: 50px;
+	  background: $color-white;
+	  margin: 0;
+
+	  &:before {
+		content: $code;
+		@include font-family-icons;
+		@include font-size(15px);
+	  }
+	}
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "name": "FRONT-STARTER-KIT",
+  "version": "1.3.0",
+  "description": "Boilerplate gulp/es6/sass",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eljouno/FRONT-STARTER-KIT.git"
+  },
+  "author": "Jo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eljouno/FRONT-STARTER-KIT/issues"
+  },
+  "homepage": "https://github.com/eljouno/FRONT-STARTER-KIT#readme",
+  "dependencies": {
+    "detect-browser": "^4.8.0",
+    "jquery": "^3.4.1",
+    "object-fit-images": "^3.2.4",
+    "swiper": "^5.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/register": "^7.10.5",
+    "acorn-dynamic-import": "^4.0.0",
+    "autoprefixer": "^9.6.1",
+    "babelify": "^10.0.0",
+    "browser-sync": "^2.26.7",
+    "browserify": "^16.5.0",
+    "del": "^5.1.0",
+    "eslint": "^6.2.1",
+    "eslint-config-standard": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-file-include": "^2.1.1",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "gulp-uglifycss": "^1.1.0",
+    "gutil": "^1.6.4",
+    "node-sass": "^4.14.1",
+    "postcss-flexbugs-fixes": "^4.1.0",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}

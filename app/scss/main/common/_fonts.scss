@@ -1,0 +1,90 @@
+// base font
+$font-base: 'Montserrat-Regular';
+$font-base-italic: 'Montserrat-Italic';
+$font-base-bold: 'Montserrat-Bold';
+$font-base-bold-italic: 'Montserrat-BoldItalic';
+$font-base-semi-bold: 'Montserrat-Bold';
+$font-base-semi-bold-italic: 'Montserrat-BoldItalic';
+$font-icons: 'icons';
+
+//Font-face
+@include font-face(#{$font-base}, 'fonts/Montserrat/Montserrat-Regular', 400, normal);
+@include font-face(#{$font-base-italic}, 'fonts/Montserrat/Montserrat-Italic', 400, italic);
+@include font-face(#{$font-base-bold}, 'fonts/Montserrat/Montserrat-Bold', bold, normal);
+@include font-face(#{$font-base-bold-italic}, 'fonts/Montserrat/Montserrat-Bold', bold, italic);
+@include font-face(#{$font-base-semi-bold}, 'fonts/Montserrat/Montserrat-SemiBold', 700, normal);
+@include font-face(#{$font-base-semi-bold-italic}, 'fonts/Montserrat/Montserrat-SemiBold', 700, italic);
+@include font-face(#{$font-icons}, 'fonts/icons/font/icons', normal, normal);
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: $font-icons;
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+// fallbacks
+$font-fallback-sansserif: HelveticaNeue, Roboto, SegoeWP, Verdana, Helvetica, Tahoma, Geneva, Arial, sans-serif;
+$font-fallback-serif: 'Times New Roman', 'Palatino Linotype', 'Book Antiqua', Palatino, Times, Georgia, serif;
+
+
+// os fonts
+/*$font-ios-light: -apple-system-body, -apple-system, 'HelveticaNeueLight', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'HelveticaNeue', 'Helvetica Neue', 'TeXGyreHerosLight';
+$font-ios-regular: -apple-system-body, -apple-system, 'HelveticaNeue', 'Helvetica Neue', 'TeXGyreHerosRegular';
+$font-ios-bold: -apple-system-body, -apple-system, 'HelveticaNeueBold', 'HelveticaNeue-Bold', 'Helvetica Neue Bold', 'HelveticaNeue', 'Helvetica Neue', 'TeXGyreHerosBold';
+
+$font-android-light: 'RobotoLight', 'Roboto-Light', 'Roboto Light', 'Roboto', 'TeXGyreHerosLight', 'Noto', 'Noto Sans', 'Noto', 'Droid Sans';
+$font-android-regular: 'Montserrat-Regular', 'MontserratRegular', 'TeXGyreHerosRegular', 'Noto', 'Noto Sans', 'Noto', 'Droid Sans';
+$font-android-bold: 'RobotoBold', 'Roboto-Bold', 'Roboto Bold', 'Roboto', 'TeXGyreHerosBold', 'Noto', 'Noto Sans', 'Noto', 'Droid Sans';*/
+
+
+// mixins
+@mixin font-base-regular {
+  font-family: $font-base, $font-fallback-sansserif, $font-fallback-serif;
+}
+@mixin font-base-italic {
+  font-family: $font-base-italic, $font-fallback-sansserif, $font-fallback-serif;
+}
+@mixin font-base-semi-bold{
+  font-family: $font-base-semi-bold, $font-fallback-sansserif, $font-fallback-serif;
+}
+@mixin font-base-semi-bold-italic {
+  font-family: $font-base-semi-bold-italic, $font-fallback-sansserif, $font-fallback-serif;
+}
+@mixin font-base-bold{
+  font-family: $font-base-bold, $font-fallback-sansserif, $font-fallback-serif;
+}
+@mixin font-base-bold-italic {
+  font-family: $font-base-bold-italic, $font-fallback-sansserif, $font-fallback-serif;
+}
+@mixin font-family-icons {
+  font-family: $font-icons;
+}
