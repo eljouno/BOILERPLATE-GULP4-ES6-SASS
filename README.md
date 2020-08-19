@@ -34,6 +34,9 @@ gulp prod
 - [Sass](https://sass-lang.com/)
 - [Gulp Postcss](https://postcss.org/)
 - [ESLint](https://eslint.org/)
+- [Browser-sync](https://www.browsersync.io/)
+- [Browserify](http://browserify.org/)
+- [Babelify](https://github.com/babel/babelify)
 
 ## Dependencies
 
