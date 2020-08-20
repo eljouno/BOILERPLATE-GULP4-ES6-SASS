@@ -1,0 +1,31 @@
+$color-blue: #2193f4;
+
+.test {
+  text-align: center;
+  font-weight: bold;
+
+  h1 {
+    color: $color-blue;
+    font-size: 45px;
+  }
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 40px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 3px 11px 5px rgba(204,204,204,1);
+
+    li img {
+      max-height: 250px;
+      width: auto;
+      max-width: 100%;
+    }
+  }
+}

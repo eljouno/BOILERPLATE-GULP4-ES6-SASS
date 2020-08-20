@@ -1,6 +1,6 @@
 {
-  "name": "FRONT-STARTER-KIT",
-  "version": "1.3.0",
+  "name": "BOILERPLATE-GULP4-ES-SASS",
+  "version": "1.1.0",
   "description": "Boilerplate gulp/es6/sass",
   "main": "index.js",
   "scripts": {
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eljouno/FRONT-STARTER-KIT.git"
+    "url": "git+https://github.com/eljouno/BOILERPLATE-GULP4-ES6-SASS.git"
   },
   "author": "Jo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eljouno/FRONT-STARTER-KIT/issues"
+    "url": "https://github.com/eljouno/BOILERPLATE-GULP4-ES6-SASS/issues"
   },
-  "homepage": "https://github.com/eljouno/FRONT-STARTER-KIT#readme",
+  "homepage": "https://github.com/eljouno/BOILERPLATE-GULP4-ES6-SASS#readme",
   "dependencies": {
     "detect-browser": "^4.8.0",
     "jquery": "^3.4.1",
