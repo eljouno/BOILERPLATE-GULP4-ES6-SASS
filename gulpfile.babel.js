@@ -27,22 +27,23 @@ const server = browserSync.create();
 const paths = {
     dest: {
         global: 'app/dist',
-        prodFolder: 'app/dist/prod',
-        devFolder: 'app/dist/dev'
+        assetsFolder: 'app/dist/assets'
     },
     src: {
-        assets: ['app/assets/**', '!app/assets/{img,img/**}'],
-        html: ['app/*.html'],
+        assets: 'app/assets/**',
+        fonts: 'app/assets/fonts/**',
         img: 'app/assets/img/**/*',
         jsCode: ['app/js/**/*.js', '!app/js/{vendor,vendor/**}'],
         jsVendor: 'app/js/vendor/**/*.js',
         jsCustom: ['app/js/custom/**/*.js', 'app/js/app.js'],
         jsEntry: ['app/js/app.js'],
         scss: 'app/scss/**/*.scss',
-        templates: ['app/*.php', 'app/templates/*.php', 'app/templates/**/*.php', 'app/templates/**/*.html.twig','app/**/*.yml', 'app/*.html','app/**/*.html']
+        html: ['app/*.html'],
+        templates: ['app/*.php', 'app/templates/*.php', 'app/templates/**/*.php', 'app/templates/**/*.html.twig', 'app/**/*.yml', 'app/*.html', 'app/**/*.html']
     },
     Dev: 'dev',
-    Prod: 'prod'
+    Prod: 'prod',
+    Dist: 'dist',
 };
 
 const FILENAMES = {
@@ -68,50 +69,33 @@ const bundler = browserify({
 });
 
 const minifyImages = (env) => {
-    if (env === paths.Dev) {
+    if (env === paths.Prod) {
         return gulp.src(paths.src.img)
-            .pipe(imagemin([
-                imagemin.gifsicle({interlaced: true, optimizationLevel: 2}),
-                imagemin.jpegtran({progressive: true}),
-                imagemin.optipng({optimizationLevel: 4}),
-                imagemin.svgo({
-                    // https://github.com/svg/svgo#what-it-can-do
-                    plugins: [
-                        {removeViewBox: true},
-                        {cleanupIDs: false}
-                    ]
-                })
-            ], {
-                verbose: false
-            }))
-            .pipe(gulp.dest(paths.dest.global + '/' + env + '/img'));
-    } else if (env === paths.Prod) {
-        return gulp.src(paths.src.img)
-            .pipe(imagemin([
-                imagemin.gifsicle({interlaced: true, optimizationLevel: 2}),
-                imagemin.jpegtran({progressive: true}),
-                imagemin.optipng({optimizationLevel: 4}),
-                imagemin.svgo({
-                    // https://github.com/svg/svgo#what-it-can-do
-                    plugins: [
-                        {removeViewBox: true},
-                        {cleanupIDs: false}
-                    ]
-                })
-            ], {
-                verbose: false
-            }))
-            .pipe(gulp.dest(paths.dest.global + '/' + env + '/img'));
+          .pipe(imagemin([
+              imagemin.gifsicle({interlaced: true, optimizationLevel: 2}),
+              imagemin.jpegtran({progressive: true}),
+              imagemin.optipng({optimizationLevel: 4}),
+              imagemin.svgo({
+                  // https://github.com/svg/svgo#what-it-can-do
+                  plugins: [
+                      {removeViewBox: true},
+                      {cleanupIDs: false}
+                  ]
+              })
+          ], {
+              verbose: false
+          }))
+          .pipe(gulp.dest(paths.dest.assetsFolder + '/img'));
     }
 };
 
 const copyAssets = (env) => {
     if (env === paths.Dev) {
         return gulp.src(paths.src.assets)
-            .pipe(gulp.dest(paths.dest.global + '/' + env));
+          .pipe(gulp.dest(paths.dest.assetsFolder));
     } else if (env === paths.Prod) {
-        return gulp.src(paths.src.assets)
-            .pipe(gulp.dest(paths.dest.global + '/' + env));
+        return gulp.src(paths.src.fonts)
+          .pipe(gulp.dest(paths.dest.assetsFolder + '/fonts'));
     }
 };
 
@@ -120,24 +104,24 @@ const copyAssets = (env) => {
 const js = (env) => {
     if (env === paths.Dev) {
         return bundler
-            .transform('babelify', {presets: ['@babel/env']})
-            .bundle()
-            .on('error', catchJSErrors)
-            .pipe(source(FILENAMES.jsCode))
-            .pipe(buffer())
-            .pipe(sourcemaps.init({loadMaps: true}))
-            .pipe(sourcemaps.write('./'))
-            .pipe(gulp.dest(paths.dest.devFolder))
-            .pipe(browserSync.stream());
+          .transform('babelify', {presets: ['@babel/env']})
+          .bundle()
+          .on('error', catchJSErrors)
+          .pipe(source(FILENAMES.jsCode))
+          .pipe(buffer())
+          .pipe(sourcemaps.init({loadMaps: true}))
+          .pipe(sourcemaps.write('./'))
+          .pipe(gulp.dest(paths.dest.global))
+          .pipe(browserSync.stream());
     } else if (env === paths.Prod) {
         return bundler
-            .transform('babelify', {presets: ['@babel/env']})
-            .bundle()
-            .on('error', catchJSErrors)
-            .pipe(source(FILENAMES.jsCode))
-            .pipe(buffer())
-            .pipe(uglify())
-            .pipe(gulp.dest(paths.dest.prodFolder))
+          .transform('babelify', {presets: ['@babel/env']})
+          .bundle()
+          .on('error', catchJSErrors)
+          .pipe(source(FILENAMES.jsCode))
+          .pipe(buffer())
+          .pipe(uglify())
+          .pipe(gulp.dest(paths.dest.global))
     }
 
 }
@@ -145,16 +129,16 @@ const js = (env) => {
 const jsVendor = (env) => {
     if (env === paths.Dev) {
         return gulp.src(paths.src.jsVendor)
-            .pipe(concat(FILENAMES.jsVendor))
-            .pipe(buffer())
-            .pipe(gulp.dest(paths.dest.devFolder))
-            .pipe(browserSync.stream());
+          .pipe(concat(FILENAMES.jsVendor))
+          .pipe(buffer())
+          .pipe(gulp.dest(paths.dest.global))
+          .pipe(browserSync.stream());
     } else if (env === paths.Prod) {
         return gulp.src(paths.src.jsVendor)
-            .pipe(concat(FILENAMES.jsVendor))
-            .pipe(buffer())
-            .pipe(uglify())
-            .pipe(gulp.dest(paths.dest.prodFolder))
+          .pipe(concat(FILENAMES.jsVendor))
+          .pipe(buffer())
+          .pipe(uglify())
+          .pipe(gulp.dest(paths.dest.global))
     }
 }
 
@@ -162,46 +146,42 @@ const css = (env) => {
     const postcssPlugins = [
         flexbug(),
         autoprefixer({
-            overrideBrowserslist : ['last 2 version', 'ie 11'],
+            overrideBrowserslist: ['last 2 version', 'ie 11'],
             flexbox: 'no-2009',
             grid: "autoplace"
         })
     ];
     if (env === paths.Dev) {
         return gulp.src(paths.src.scss)
-            .pipe(plumber({
-                errorHandler: function (err) {
-                    notify.onError({
-                        title: "Gulp error in " + err.plugin,
-                        message: err.toString()
-                    })(err);
-                }
-            }))
-            .pipe(sourcemaps.init())
-            .pipe(sass().on('error', sass.logError))
-            .pipe(postcss(postcssPlugins))
-            .pipe(sourcemaps.write('./'))
-            .pipe(gulp.dest(paths.dest.devFolder))
-            .pipe(browserSync.stream());
+          .pipe(plumber({
+              errorHandler: function (err) {
+                  notify.onError({
+                      title: "Gulp error in " + err.plugin,
+                      message: err.toString()
+                  })(err);
+              }
+          }))
+          .pipe(sourcemaps.init())
+          .pipe(sass().on('error', sass.logError))
+          .pipe(postcss(postcssPlugins))
+          .pipe(sourcemaps.write('./'))
+          .pipe(gulp.dest(paths.dest.global))
+          .pipe(browserSync.stream());
     } else if (env === paths.Prod) {
         return gulp.src(paths.src.scss)
-            .pipe(sass().on('error', sass.logError))
-            .pipe(postcss(postcssPlugins))
-            .pipe(uglifycss({
-                "maxLineLen": 80,
-                "uglyComments": true
-            }))
-            .pipe(gulp.dest(paths.dest.prodFolder))
+          .pipe(sass().on('error', sass.logError))
+          .pipe(postcss(postcssPlugins))
+          .pipe(uglifycss({
+              "maxLineLen": 80,
+              "uglyComments": true
+          }))
+          .pipe(gulp.dest(paths.dest.global))
     }
 }
 
 // CLEAN FOLDER DIST
-function cleanDist(env) {
-    if (env === paths.Dev) {
-        return del(paths.dest.devFolder, {force: true});
-    } else if (env === paths.Prod) {
-        return del(paths.dest.prodFolder, {force: true});
-    }
+function cleanDist() {
+    return del(paths.dest.global, {force: true});
 }
 
 // Not exposed to CLI
@@ -246,12 +226,11 @@ const watchJsVendor = () => gulp.watch(paths.src.jsVendor, gulp.series(jsVendorD
 const watchCss = () => gulp.watch(paths.src.scss, gulp.series(cssDev, reload));
 
 
-
+const cleanDistGlob = () => cleanDist(paths.Dist);
+const copyAssetsDev = () => copyAssets(paths.Dev);
+const copyAssetsProd = () => copyAssets(paths.Prod);
 
 // DEV TASKS
-const cleanDistDev = () => cleanDist(paths.Dev);
-const copyAssetsDev = () => copyAssets(paths.Dev);
-const minifyImgDev = () => minifyImages(paths.Dev);
 const jsDev = () => js(paths.Dev);
 const cssDev = () => css(paths.Dev);
 const jsVendorDev = () => jsVendor(paths.Dev);
@@ -259,23 +238,21 @@ const compile = gulp.series(jsDev, jsVendorDev, cssDev);
 const serve = gulp.series(compile, startServer);
 const watch = gulp.parallel(watchHtml, watchTemplates, watchJs, watchJsVendor, watchCss);
 
-gulp.task('dev', gulp.series(cleanDistDev, minifyImgDev, copyAssetsDev, serve, watch, function (done) {
+gulp.task('dev', gulp.series(cleanDistGlob, copyAssetsDev, serve, watch, function (done) {
     done();
 }));
 
 // PROD TASKS
-const cleanDistProd = () => cleanDist(paths.Prod);
-const copyAssetsProd = () => copyAssets(paths.Prod);
 const minifyImgProd = () => minifyImages(paths.Prod);
 const jsProd = () => js(paths.Prod);
 const cssProd = () => css(paths.Prod);
 const jsVendorProd = () => jsVendor(paths.Prod);
 const compileProd = gulp.series(jsProd, jsVendorProd, cssProd);
 
-gulp.task('prod', gulp.series(cleanDistProd, minifyImgProd, copyAssetsProd, compileProd, function (done) {
+gulp.task('prod', gulp.series(cleanDistGlob, minifyImgProd, copyAssetsProd, compileProd, function (done) {
     done();
 }));
 
-gulp.task('default', gulp.series(cleanDistDev, minifyImgDev, copyAssetsDev, watch, function (done) {
+gulp.task('default', gulp.series(cleanDistGlob, minifyImgProd, copyAssetsProd, compileProd, function (done) {
     done();
 }));
