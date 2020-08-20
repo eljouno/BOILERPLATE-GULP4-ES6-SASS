@@ -1,6 +1,6 @@
 # 📦 GULP4 SASS ES6 Boilerplate
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)![David](https://img.shields.io/badge/dependencies-up%20to%20date-green)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) ![David](https://img.shields.io/badge/dependencies-up%20to%20date-green)
 
 Minimal Gulp 4 boilerplate with Babel, Sass, ESLint, Browser-sync, and development/production optimization.
 
