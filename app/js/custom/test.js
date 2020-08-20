@@ -4,9 +4,6 @@
 *
  */
 
+const test = (name) => console.log(`Hello ${name}`)
 
-console.log('its-work');
-
-const hello = (name) => { return `hello mon cher ${name}`; };
-
-console.log(hello('Jo'));
+export default test
