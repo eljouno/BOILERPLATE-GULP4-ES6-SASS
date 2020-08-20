@@ -1,7 +1,3 @@
-@charset 'UTF-8';
-
-@import 'core/main'; // Common code shared accross all projects
-@import 'vendor/main'; // Site's specific libs
-@import 'main/main'; // Site's specific styles
+@charset "UTF-8";
 
 @import "test";
