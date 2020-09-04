@@ -192,6 +192,7 @@ const reload = (done) => {
 
 const startServer = (done) => {
     server.init({
+        port: 3010,
         server: {
             baseDir: './app'
         }
